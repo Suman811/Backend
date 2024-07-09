@@ -25,12 +25,29 @@ namespace NewBackend.Controllers
         }
 
         [HttpPost("AddUser")]
-         public async Task<IActionResult> CreateSignup(UserModel userModel)
+        public async Task<IActionResult> CreateSignup(UserModel userModel)
         {
             return Ok(await _userService.CreateSignup(userModel));
         }
+        [HttpPut("UpdateUser")]
+        public  async Task<IActionResult> Update(UserModel userModel)
+        {
+            var result= await _userService.Update(userModel);
+            if (result > 0)
+            {
+               return Ok("User Updated");
+            }
+            return Ok("User not registered");
+            
+        }
 
 
+        [HttpDelete("DeleteUser")]
+        public void Delete(int id)
+        {
+            _userService.Delete(id);
+
+        }
         }
 
     } 
